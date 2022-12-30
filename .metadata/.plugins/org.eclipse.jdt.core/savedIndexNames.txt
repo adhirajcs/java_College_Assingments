@@ -1,0 +1,4 @@
+INDEX VERSION 1.131+E:\ADHIRAJ_DESKTOP\___Adhiraj_Desktop_MEGA_SYNC___\_STUDIES_\MCA\_PROG__LANG__MCA_\JAVA\College Assignments\.metadata\.plugins\org.eclipse.jdt.core
+1865797976.index
+3959137331.index
+866963972.index

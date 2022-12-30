@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="selection" value="t2"/>
+		<item key="wrap" value="true"/>
+		<item key="casesensitive" value="false"/>
+		<item key="wholeword" value="false"/>
+		<item key="incremental" value="false"/>
+		<item key="isRegEx" value="false"/>
+		<list key="findhistory">
+			<item value="thread2"/>
+			<item value="Thread1"/>
+			<item value="Thread22"/>
+			<item value="Thread11"/>
+			<item value="Thread2"/>
+			<item value="thread1"/>
+			<item value="s2"/>
+			<item value="s1"/>
+			<item value="rsrc1"/>
+			<item value="resource2"/>
+			<item value="resource1"/>
+			<item value="random"/>
+			<item value="printStackTrace"/>
+			<item value="PING"/>
+			<item value="mthod"/>
+		</list>
+		<list key="replacehistory">
+			<item value="t2"/>
+			<item value="t1"/>
+			<item value="Thread22"/>
+			<item value="Thread11"/>
+			<item value="thread11"/>
+			<item value="thread_1"/>
+			<item value="st2"/>
+			<item value="st1"/>
+			<item value="resrc1"/>
+			<item value="resrc2"/>
+			<item value="rsrc1"/>
+			<item value="th2"/>
+			<item value="th1"/>
+			<item value="ThreadB"/>
+			<item value="ThreadA"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="368"/>
+		<item key="DIALOG_Y_ORIGIN" value="112"/>
+		<item key="DIALOG_WIDTH" value="322"/>
+		<item key="DIALOG_HEIGHT" value="391"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
+	</section>
+</section>

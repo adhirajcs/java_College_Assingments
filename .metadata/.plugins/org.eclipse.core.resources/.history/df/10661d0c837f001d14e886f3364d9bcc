@@ -1,0 +1,81 @@
+package day9;
+import java.util.Random;
+!!!!
+/* 2. Write a multithreaded program that continuously prints the strings “ping” and
+“PONG” in the console at random distances at intervals of one second. Use two
+threads one for “ping” and another for “PONG”. */
+
+
+// pingClass named class is inheriting Thread class
+class pingClass extends Thread{
+	Random random = new Random();
+	// overriding the run() method from the Thread class
+	@Override
+	public synchronized void run() {
+		int i=0;
+		String space = "";
+		for(int j = 0;j<random.nextInt(20);j++) {
+			space = space + " ";
+		}
+		while(i<10) {
+			// try block to check for exception
+			try {
+				// using the sleep() method from the Thread class
+				Thread.sleep(1000);
+			}
+			// catch block to catch the exception
+			catch (InterruptedException e) {
+				// using the printStackTrace() method from Throwable class
+				e.printStackTrace();
+			}
+			System.out.print("PING"+space);
+			i++;
+		}
+	}
+}
+
+//pongClass named class is inheriting Thread class
+class pongClass extends Thread{
+	Random random = new Random();
+	// overriding the run() method from the Thread class
+	@Override
+	public synchronized void run() {
+		int i=0;
+		String space = "";
+		for(int j = 0;j<random.nextInt(10);j++) {
+			space = space + " ";
+		}
+		while(i<10) {
+			// try block to check for exception
+			try {
+				// using the sleep() method from the Thread class
+				Thread.sleep(1000);
+			}
+			// catch block to catch the exception
+			catch (InterruptedException e) {
+				// using the printStackTrace() method from Throwable class
+				e.printStackTrace();
+			}
+			System.out.print("PONG"+space);
+			i++;
+		}
+	}
+}
+
+// driver class
+public class q2 {
+
+	// throwing the exception called InterruptedException
+	public static void main(String[] args) throws InterruptedException {
+		pingClass ping = new pingClass();
+		pongClass pong = new pongClass();
+		// using the start() method from thread class
+		ping.start();
+		pong.start();
+	}
+}
+
+
+/*OUTPUT - 
+PONG PING  PING  PONG PONG PING  PONG PING  PING  PONG PING  PONG PONG PING  PING  PONG PONG PING  PONG PING  
+*/

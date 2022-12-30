@@ -1,0 +1,68 @@
+package day9;
+
+/*  */
+
+class thread11 extends Thread {
+	private int x;
+	private Thread2 thread2;
+
+	public thread11(int x, Thread2 thread2) {
+		this.x = x;
+		this.thread2 = thread2;
+	}
+
+	@Override
+	public void run() {
+		while (true) {
+			synchronized (thread2) {
+				x++;
+				thread2.notifyAll();
+			}
+			try {
+				// sleep for 1 second
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// do nothing
+			}
+		}
+	}
+}
+
+class Thread2 extends Thread {
+	private int x;
+	private thread11 thread11;
+
+	public Thread2(int x, thread11 thread11) {
+		this.x = x;
+		this.thread11 = thread11;
+	}
+
+	@Override
+	public void run() {
+		while (true) {
+			synchronized (this) {
+				try {
+					// wait for thread11 to call notifyAll
+					wait();
+				} catch (InterruptedException e) {
+					// do nothing
+				}
+			}
+			System.out.println("x = " + x);
+			synchronized (thread11) {
+				// notify thread11 to continue execution
+				thread11.notifyAll();
+			}
+		}
+	}
+}
+
+public class q6 {
+
+	public static void main(String[] args) {
+		int x = 0;
+		thread11 thread11 = new thread11(x, new Thread2(x, thread11));
+		thread11.start();
+	}
+
+}

@@ -1,0 +1,57 @@
+package day9;
+
+import java.util.Random;
+
+class PingRunnable implements Runnable {
+    // Generate a random number generator
+    private Random random = new Random();
+
+    @Override
+    public void run() {
+        while (true) {
+            // Sleep for a random interval between 0 and 1000 milliseconds
+            try {
+                Thread.sleep(random.nextInt(1000));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            // Print "ping"
+            System.out.println("ping");
+        }
+    }
+}
+
+class PongRunnable implements Runnable {
+    // Generate a random number generator
+    private Random random = new Random();
+
+    @Override
+    public void run() {
+        while (true) {
+            // Sleep for a random interval between 0 and 1000 milliseconds
+            try {
+                Thread.sleep(random.nextInt(1000));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            // Print "PONG"
+            System.out.println("PONG");
+        }
+    }
+}
+
+
+// driver class
+public class q2_1 {
+
+	// throwing the exception called InterruptedException
+		public static void main(String[] args) throws InterruptedException {
+			pingClass ping = new pingClass();
+			pongClass pong = new pongClass();
+			// using the start() method from thread class
+			ping.start();
+			pong.start();
+		}
+}

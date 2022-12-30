@@ -1,0 +1,60 @@
+package day9;
+
+/* 6. Suppose that two threads “t1” and “t2” access a shared integer “x”. Thread “t1”
+indefinitely increases “x” and “t2” indefinitely prints the value of “x”. That is the
+threads run in an infinite loop. However, thread “t1” must not increase “x” till that
+value of “x” is printed by “t2” and “t2” must not print the same value of “x” more
+than once. */
+
+public class Thread1 extends Thread {
+	  private int x;
+
+	  public Thread1(int x) {
+	    this.x = x;
+	  }
+
+	  @Override
+	  public void run() {
+	    while (true) {
+	      // increment x
+	      x++;
+	      System.out.println("Thread1: x = " + x);
+	      try {
+	        // sleep for 1 second
+	        Thread.sleep(1000);
+	      } catch (InterruptedException e) {
+	        // do nothing
+	      }
+	    }
+	  }
+	}
+
+	class Thread2 extends Thread {
+	  private int x;
+
+	  public Thread2(int x) {
+	    this.x = x;
+	  }
+
+	  @Override
+	  public void run() {
+	    int previous = x;
+	    while (true) {
+	      if (x != previous) {
+	        // print x if it has changed
+	        System.out.println("Thread2: x = " + x);
+	        previous = x;
+	      }
+	    }
+	  }
+	}
+
+public class q6 {
+
+	public static void main(String[] args) {
+		int x = 0;
+		thread11 thread11 = new thread11(x, new Thread2(x, thread11));
+		thread11.start();
+	}
+
+}
