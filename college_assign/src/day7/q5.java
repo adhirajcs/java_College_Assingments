@@ -1,40 +1,81 @@
 package day7;
 
-/* 5. Write a program that outputs the name of the capital of the country entered at the
-command line. The program should throw a “NoMatchFoundException” when it fails to
-print the capital of the country entered at the command line. */
+/* 5. Create two Thread subclasses, one with a run( ) that starts up, captures the
+reference of the second Thread object and then calls wait( ). The other class’
+run( ) should call notifyAll( ) for the first thread after some number of seconds
+have passed, so the first thread can print a message. */
 
-// class named NoMatchFoundException1 inheriting Exception class
-class NoMatchFoundException1 extends Exception {
-	public NoMatchFoundException1() {
-		System.out.println("Fails to print the capital of the country entered at the command line!!!");
+// thread1 named class is inheriting Thread class
+class Thread1 extends Thread {
+	private Thread2 thread2;
+
+	public Thread1(Thread2 thread2) {
+		this.thread2 = thread2;
+	}
+
+	@Override
+	public void run() {
+		System.out.println("Thread1 starting up");
+		synchronized (thread2) {
+			try {
+				// waiting for Thread2 to call notifyAll
+				thread2.wait();
+			} catch (InterruptedException e) {
+				// calling printStackTrace() method of the Throwable class
+				e.printStackTrace();
+			}
+		}
+		System.out.println("Thread1 received notification");
+		System.out.println("Thread1 finished");
 	}
 }
-// driver class
+
+//thread2 named class is inheriting Thread class
+class Thread2 extends Thread {
+	private int delay;
+
+	public Thread2(int delay) {
+		this.delay = delay;
+	}
+
+	@Override
+	public void run() {
+		System.out.println("Thread2 starting up");
+		try {
+			// sleep for 5 seconds
+			Thread.sleep(delay * 1000);
+		} catch (InterruptedException e) {
+			// calling printStackTrace() method of the Throwable class
+			e.printStackTrace();
+		}
+		System.out.println("notify Thread1 to continue execution");
+		synchronized (this) {
+			// notify Thread1 to continue execution
+			notifyAll();
+		}
+		System.out.println("Thread2 finished");
+	}
+}
+
+//driver class
 public class q5 {
 
 	public static void main(String[] args) {
-		// try block
-		try{
-			String s="";
-			for(int i=0;i<args.length;i++){
-				s = args[i];
-				}
-			if(s==""){
-				throw new NoMatchFoundException1();
-			}
-			else{
-				System.out.println(s);
-			}
-		}
-		// catch block
-		catch(NoMatchFoundException1 e){
-			System.out.println(e);
-		}
+		Thread2 thread2 = new Thread2(5);
+		Thread1 thread1 = new Thread1(thread2);
+		// starting thread1 and thread2
+		thread1.start();
+		thread2.start();
+
 	}
 }
 
+
 /* OUTPUT -
-Fails to print the capital of the country entered at the command line!!!
-day7.NoMatchFoundException1
-*/
+Thread1 starting up
+Thread2 starting up
+notify Thread1 to continue execution
+Thread1 received notification
+Thread1 finished
+Thread2 finished
+ */

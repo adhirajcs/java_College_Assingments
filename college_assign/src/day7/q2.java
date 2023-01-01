@@ -1,53 +1,137 @@
 package day7;
-import java.util.*;
 
-/* 2. Define an exception called “NoMatchFoundException” that is thrown when a string is
-not equal to “University”. Write a program that uses this exception. */
+/* 2. Write multi-threaded program that continuously prints the strings “ping” and
+“PONG” in the console at random distances at intervals of one second. Use two
+threads one for “ping” and another for “PONG”. */
 
-// NoMatchFoundException named class inheriting the Exception class 
-class NoMatchFoundException extends Exception {
-    public NoMatchFoundException() {
-    	// This method will execute if the string does not have the word "University"
-        System.out.println("This string does not have the word \"University\"");
+import java.util.Random;
+
+public class q2 {
+    public static void main(String[] args) {
+        // Create a Random object to generate random numbers
+        Random rand = new Random();
+        
+        // Create a Runnable object for the ping thread
+        Runnable ping = () -> {
+            // Loop indefinitely
+            while (true) {
+                try {
+                    // Pause for one second
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    // Print the stack trace if an InterruptedException is thrown
+                    e.printStackTrace();
+                }
+                // Print "ping" to the console
+                System.out.println("ping");
+            }
+        };
+        
+        // Create a Runnable object for the pong thread
+        Runnable pong = () -> {
+            // Loop indefinitely
+            while (true) {
+                try {
+                    // Pause for a random amount of time between zero and one second
+                    Thread.sleep(rand.nextInt(1000));
+                } catch (InterruptedException e) {
+                    // Print the stack trace if an InterruptedException is thrown
+                    e.printStackTrace();
+                }
+                // Print "PONG" to the console
+                System.out.println("PONG");
+            }
+        };
+        
+        // Create two Thread objects, one for each Runnable
+        Thread thread1 = new Thread(ping);
+        Thread thread2 = new Thread(pong);
+        
+        // Start both threads
+        thread1.start();
+        thread2.start();
     }
 }
 
-// driver class
-public class q2
-{
-	public static void main(String[] args) {
-		// try block
-		try {
-		    Scanner sc = new Scanner(System.in);
-		    // taking user input for the string
-		    System.out.print("Enter a string: ");
-		    String st = sc.next();
-		    // checking if the string contains the word "University"
-		    if(st.equals("University")) {
-		        System.out.print("This string contains \"University\"");
-		    }
-		    else {
-		        // throw keyword is used here for the exception if the string doesn't contain the word "University"
-		        throw new NoMatchFoundException();
-		    }
-		}
-		// catch block
-		catch (NoMatchFoundException e) {
-			// counting the number of exceptions
-		    System.out.print("This program has an exception of" + e);
-		}
-	}
-}
-
-/*
-OUTPUT 1 - 
-Enter a string: gfdgdf
-This string does not have the word "University"
-This program has an exception ofday7.NoMatchFoundException
-*/
-
-/*
-OUTPUT 1 -
-Enter a string: University
-This string contains "University"
+/* OUTPUT -
+PONG
+ping
+PONG
+PONG
+PONG
+ping
+PONG
+ping
+PONG
+PONG
+ping
+PONG
+PONG
+ping
+PONG
+PONG
+ping
+PONG
+ping
+PONG
+PONG
+ping
+PONG
+ping
+PONG
+PONG
+ping
+PONG
+PONG
+ping
+PONG
+PONG
+PONG
+ping
+PONG
+PONG
+ping
+PONG
+ping
+PONG
+PONG
+PONG
+PONG
+ping
+PONG
+PONG
+PONG
+ping
+PONG
+PONG
+PONG
+PONG
+PONG
+ping
+PONG
+PONG
+PONG
+PONG
+ping
+PONG
+PONG
+ping
+PONG
+PONG
+PONG
+ping
+PONG
+ping
+PONG
+ping
+PONG
+PONG
+ping
+PONG
+PONG
+PONG
+ping
+PONG
+ping
+PONG
 */

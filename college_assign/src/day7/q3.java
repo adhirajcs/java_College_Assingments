@@ -1,194 +1,108 @@
 package day7;
-import java.util.*;
 
-/* 3. Write a program to create a class called MyStack that includes functions to perform all
-operations on a stack as well as raises an exception whenever overflow/underflow error
-occurs. */
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 
-// created a class called Stack
-class Stack{				
-	int top;				
-	int arr[];		
-	// constructor of the Stack class
-	Stack(int size){		
-		arr = new int[size];
-		top=-1;
+/* 3. Write a program to sort a list of strings using multithreading. Create one of the
+threads that take a string as input from the user, another thread that sorts the
+strings and finally another thread that displays the sorted list of strings. Each of
+the input, sort, and display methods is to be synchronized. */
+
+class StringSorter {
+	private List<String> list;
+
+	public StringSorter() {
+		list = new ArrayList<>();
 	}
-		// method for push function for the stack
-		void push(int value,int size) {
-			top++;											
-			arr[top]=value;									
-			}
-		// method for the pop function of the stack
-		void pop() {											
-			top--;											
+
+	// synchronized method to add a string to the list
+	public synchronized void addString(String s) {
+		list.add(s);
+	}
+
+	// synchronized method to sort the list of strings
+	public synchronized void sortList() {
+		Collections.sort(list);
+	}
+
+	// synchronized method to display the list of strings
+	public synchronized void displayList() {
+		for (String s : list) {
+			System.out.println(s);
 		}
-	
-	// method to display the stack
-	void display() {
-		System.out.println("The elements of the stack: ");
-		// printing each element present in the stack
-		for(int i=top; i>=0; i--) {	
-			System.out.println(arr[i]);
-		}
 	}
 }
-// class named Overflow inheriting the Exception class
-class Overflow extends Exception{
-	Overflow(){
-		// this will print if the stack is overflowed by elements
-		System.out.println("Stack Overflowed!!!");
+
+// Thread class to add a string to the list
+class InputThread extends Thread {
+	private StringSorter sorter;
+	private String str;
+
+	public InputThread(StringSorter sorter, String str) {
+		this.sorter = sorter;
+		this.str = str;
+	}
+
+	@Override
+	public void run() {
+		sorter.addString(str);
 	}
 }
-// class named Underflow inheriting the Exception class
-class Underflow extends Exception{
-	Underflow(){
-		// this will print if the stack doesn't have any elements
-		System.out.println("Stack Underflowed!!!");
+
+// Thread class to sort the list of strings
+class SortThread extends Thread {
+	private StringSorter sorter;
+
+	public SortThread(StringSorter sorter) {
+		this.sorter = sorter;
+	}
+
+	@Override
+	public void run() {
+		sorter.sortList();
 	}
 }
-// driver class
+
+// Thread class to display the list of strings
+class DisplayThread extends Thread {
+	private StringSorter sorter;
+
+	public DisplayThread(StringSorter sorter) {
+		this.sorter = sorter;
+	}
+
+	@Override
+	public void run() {
+		sorter.displayList();
+	}
+}
+
+
+// Driver class to test the multithreaded string sorter
 public class q3 {
 
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		// taking user input for the size of the stack
-		System.out.print("Enter the Size of the Stack: ");
-		int size = sc.nextInt();
-		Stack stack = new Stack(size);	
-		// using while loop and switch case for the Menu UI for the user
-		while(true) {
-	        System.out.print("1. Press 1 to Push\n2. Press 2 to Pop\n3. Press 3 to Display\n4. Press 4 to Exit:");       
-	        int ch = sc.nextInt();
-	        switch(ch) {
-	        case 1:		
-	        	// try block
-	        	try{
-	        		// if user wants to add more elements but the stack doesn't have any space left
-					if(stack.top==size-1) {
-						throw new Overflow();
-					}
-					// if user wants to add elements and there is space in the stack for that
-					else {
-						System.out.print("Enter the value: ");
-			        	int value = sc.nextInt();
-			        	stack.push(value, size);
-			        	System.out.println("Push Operation Succuessfully Excecuted.");
-					}
-	        	}
-	        	// catch block
-	        	catch(Overflow o){
-					System.out.println("Exception: "+o);
-				}
-	        	break;
-	        case 2:		
-	        	// try block
-	        	try{
-	        		// if the user wants to remove an element despite being that the stack is empty
-					if(stack.top==-1) {
-						throw new Underflow();
-					}
-					else {
-						// if the user wants to remove an element and the stack isn't empty
-						stack.pop();
-			        	System.out.println("Pop Operation Successfully Execulted.");
-					}
-				}
-	        	// counting the number of exceptions in the process
-				catch(Underflow u){
-					System.out.println("Exception: "+u);
-				}
-	        	
-	        	break;
-	        case 3:		
-	        	// to display the stack
-	        	stack.display();
-	        	break;
-	        case 4:			
-	        	// to exit the menu
-	        	System.exit(0);
-	        default:
-	        	// if user puts wrong input
-	        	System.out.println("WRONG INPUT!!!");
-	        }
-		}
+		StringSorter sorter = new StringSorter();
+
+		// create and start the input, sort, and display threads
+		InputThread inputThread1 = new InputThread(sorter, "apple");
+		InputThread inputThread2 = new InputThread(sorter, "banana");
+		InputThread inputThread3 = new InputThread(sorter, "cherry");
+		SortThread sortThread = new SortThread(sorter);
+		DisplayThread displayThread = new DisplayThread(sorter);
+
+		inputThread1.start();
+		inputThread2.start();
+		inputThread3.start();
+		sortThread.start();
+		displayThread.start();
 	}
 }
 
-/*
- * OUTPUT - 
-Enter the Size of the Stack: 3
-1. Press 1 to Push
-2. Press 2 to Pop
-3. Press 3 to Display
-4. Press 4 to Exit:1
-Enter the value: 5
-Push Operation Succuessfully Excecuted.
-1. Press 1 to Push
-2. Press 2 to Pop
-3. Press 3 to Display
-4. Press 4 to Exit:1
-Enter the value: 6
-Push Operation Succuessfully Excecuted.
-1. Press 1 to Push
-2. Press 2 to Pop
-3. Press 3 to Display
-4. Press 4 to Exit:3
-The elements of the stack: 
-6
-5
-1. Press 1 to Push
-2. Press 2 to Pop
-3. Press 3 to Display
-4. Press 4 to Exit:2
-Pop Operation Successfully Execulted.
-1. Press 1 to Push
-2. Press 2 to Pop
-3. Press 3 to Display
-4. Press 4 to Exit:3
-The elements of the stack: 
-5
-1. Press 1 to Push
-2. Press 2 to Pop
-3. Press 3 to Display
-4. Press 4 to Exit:1
-Enter the value: 6
-Push Operation Succuessfully Excecuted.
-1. Press 1 to Push
-2. Press 2 to Pop
-3. Press 3 to Display
-4. Press 4 to Exit:3
-The elements of the stack: 
-6
-5
-1. Press 1 to Push
-2. Press 2 to Pop
-3. Press 3 to Display
-4. Press 4 to Exit:1
-Enter the value: 87
-Push Operation Succuessfully Excecuted.
-1. Press 1 to Push
-2. Press 2 to Pop
-3. Press 3 to Display
-4. Press 4 to Exit:3
-The elements of the stack: 
-87
-6
-5
-1. Press 1 to Push
-2. Press 2 to Pop
-3. Press 3 to Display
-4. Press 4 to Exit:2
-Pop Operation Successfully Execulted.
-1. Press 1 to Push
-2. Press 2 to Pop
-3. Press 3 to Display
-4. Press 4 to Exit:3
-The elements of the stack: 
-6
-5
-1. Press 1 to Push
-2. Press 2 to Pop
-3. Press 3 to Display
-4. Press 4 to Exit:4
-*/
+
+/* OUTPUT - 
+apple
+banana
+cherry
+ */
