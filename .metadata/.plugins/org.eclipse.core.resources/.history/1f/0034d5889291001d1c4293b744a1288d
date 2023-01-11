@@ -1,0 +1,16 @@
+package day9;
+
+/* 2. Write a program that uses a StringTokenizer to tokenize a line of text input by the user and places
+each token in a treeSet. Print the elements of the treeSet. [Note: This should cause the elements to be
+printed in ascending sorted order.] */
+
+public class q2 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
+
+/* OUTPU - 

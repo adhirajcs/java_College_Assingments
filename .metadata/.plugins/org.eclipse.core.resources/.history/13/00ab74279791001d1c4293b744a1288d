@@ -1,0 +1,12 @@
+package day9;
+
+/* 5. Write a program to find elements which are present in first array and not in second array. */
+
+public class q5 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
