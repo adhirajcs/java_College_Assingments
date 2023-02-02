@@ -1,0 +1,59 @@
+package day8;
+
+
+/*
+ * 5. Write the following methods that return a lambda expression performing a specified action:
+ * isOdd(): The lambda expression must return true if a number is odd or false if it is even.
+ * isPrime(): The lambda expression must return true if a number is prime or false if it is composite.
+ * isPalindrome(): The lambda expression must return true if a number is a palindrome or false if it is not.
+ */
+
+import java.util.Random;
+
+interface Checker {
+	boolean check(int n);
+}
+
+public class Main {
+	static Random r = new Random();
+
+	public static void main(String[] args) {
+		int t;
+
+		// Odd
+		Checker isOdd = (n) -> n % 2 == 1;
+		t = r.nextInt(100);
+		System.out.println(t + " is odd?: " + isOdd.check(t));
+
+		// Prime
+		Checker isPrime = (n) -> {
+			if (n < 2)
+				return false;
+			for (int i = 2; i <= Math.sqrt(n); i++)
+				if (n % i == 0)
+					return false;
+			return true;
+		};
+		t = r.nextInt(100);
+		System.out.println(t + " is prime?: " + isPrime.check(t));
+
+		// Palindrome
+		Checker isPalindrome = (n) -> {
+			String x = "" + n;
+			int l = x.length();
+			for (int i = 0; i < l / 2; i++)
+				if (x.charAt(i) != x.charAt(l - 1 - i))
+					return false;
+			return true;
+		};
+		t = r.nextInt(100000);
+		System.out.println(t + " is palindrome?: " + isPalindrome.check(t));
+	}
+}
+
+
+/* OUTPUT - 
+57 is odd?: true
+72 is prime?: false
+80212 is palindrome?: false
+*/

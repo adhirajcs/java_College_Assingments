@@ -1,0 +1,18 @@
+package day8;
+import java.util.Scanner;
+
+
+/* 1. Design the Stack Using Generic Class that can contain any type of data. Implement the insertion,
+deletion, peek function. */
+
+class Stack<S> {
+	int top
+}
+public class q1 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

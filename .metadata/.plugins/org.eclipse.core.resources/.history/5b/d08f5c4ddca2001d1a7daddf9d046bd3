@@ -1,0 +1,13 @@
+/* 1. Design the Stack Using Generic Class that can contain any type of data. Implement the insertion,
+deletion, peek function. */
+
+package day8;
+
+public class q1 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

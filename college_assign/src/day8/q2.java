@@ -1,0 +1,131 @@
+package day8;
+
+/*
+ Design the Queue Using Generic Class that can contain any type of data. Implement the
+insertion, deletion methods.
+ */
+
+import java.util.ArrayList;
+
+//declaring generic class Queue of type Q
+class Queue<Q>{
+	// Initializing the array
+	ArrayList<Q> arr;				//declaring an array of type Q
+	int front,rear,size;
+	// Creating the Constructor
+	Queue(int size){
+		this.size = size;
+		arr = new ArrayList<Q>(size);
+		front=-1;
+		rear =-1;
+	}
+	// Creating the Insertion method
+	void insert(Q value) {
+		if(front==0 && rear==size-1) {
+			// This if part will be printed if the queue is overflowed
+			System.out.println("The Queue is Overflowed!!!");	
+		}
+		else {
+			if(front==-1) {
+				front=0;
+			}
+			rear++;
+			arr.add(rear,value);
+			System.out.println(value+" inserted Successfully!");
+		}
+	}
+	// Creating the Deletion method
+	void delete() {
+		if(rear == front) {
+			// This if part will be printed if the queue is underflowed
+			System.out.println("The Queue is Underflowed!!!");
+		}
+		else {
+			if(front>=rear) {
+				front=-1;
+				rear=-1;
+			}
+			front++;
+			System.out.println("Data Deleted Successfully!");
+		}
+	}
+	// Creating the Display method
+	void display() {
+		if(rear == front-1) {
+			System.out.print("The Queue is empty.");
+		}
+		else {
+			System.out.print("The elements in the stack are: ");
+			for(int i = front;i<=rear;i++) {
+				System.out.print(arr.get(i)+" ");
+			}	
+		}
+	}
+}
+public class q2 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.println("-----------INTEGER-------------");
+		Queue<Integer> q1 = new Queue<Integer>(5);						//declaring the Integer Queue
+		q1.delete();
+		q1.insert(2);
+		q1.insert(3);
+		q1.insert(4);
+		q1.insert(7);
+		q1.insert(9);
+		q1.insert(10);
+		q1.delete();
+		q1.insert(5);
+		q1.display();
+		System.out.println();
+		System.out.println("\n--------------STRING-------------");
+		Queue<String> q2 = new Queue<String>(3);						//declaring the String Queue
+		q2.delete();
+		q2.insert("Echo");
+		q2.insert("Mercy");
+		q2.insert("Symettra");
+		q2.insert("Mei");
+		q2.delete();
+		q2.insert("Dva");
+		q2.display();
+		System.out.println();
+		System.out.println("\n-----------DOUBLE----------------");
+		Queue<Double> q3 = new Queue<Double>(1);						//declaring the Double Queue
+		q3.delete();
+		q3.insert(3.14);
+		q3.insert(9.1);
+		q3.display();
+		System.out.println();
+	}
+
+}
+
+/* OUTPUT 
+-----------INTEGER-------------
+The Queue is Underflowed!!!
+2 inserted Successfully!
+3 inserted Successfully!
+4 inserted Successfully!
+7 inserted Successfully!
+9 inserted Successfully!
+The Queue is Overflowed!!!
+Data Deleted Successfully!
+5 inserted Successfully!
+The elements in the stack are: 3 4 7 9 5 
+
+--------------STRING-------------
+The Queue is Underflowed!!!
+Echo inserted Successfully!
+Mercy inserted Successfully!
+Symettra inserted Successfully!
+The Queue is Overflowed!!!
+Data Deleted Successfully!
+Dva inserted Successfully!
+The elements in the stack are: Mercy Symettra Dva 
+
+-----------DOUBLE----------------
+The Queue is Underflowed!!!
+3.14 inserted Successfully!
+The Queue is Overflowed!!!
+The elements in the stack are: 3.14 */

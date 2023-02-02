@@ -1,0 +1,62 @@
+package day8;
+import java.util.Scanner;
+import java.util.ArrayList;
+
+
+/* 1. Design the Stack Using Generic Class that can contain any type of data. Implement the insertion,
+deletion, peek function. */
+
+//declaring a stack class of generic S
+class Stack<S>{
+	int top;				//declaring the top variable
+	int size;
+	ArrayList<S> arr;				//declaring an array of type S
+	Stack(int size){		//Inside the constructor passing the parameter of size which takes the input from user of size of the stack and initializing top with -1
+		arr = new ArrayList<S>(size);
+		this.size = size;
+		top=-1;
+	}
+	
+	void push(S value) {
+		if(top==size-1) {
+			System.out.println("Stack Overflow");		//if top is same as the size of the stack then stack overflow
+		}
+		else {
+			top++;											//incrementing the top variable
+			arr.add(top,value);								//storing the value inside the array
+			System.out.println(value+" is pushed to the stack");
+			
+		}
+	}
+	void pop() {											//if the top is still -1 we cannot insert anything
+		if(top==-1) {
+			System.out.println("Stack underflow");
+		}
+		else {
+			System.out.println(arr.get(top)+" is popped from the stack");
+			top--;											//decrementing each time pop operation occurs
+		}
+	}
+	void display() {
+		if(top==-1) {
+			System.out.println("The stack contains no elements.");	
+		}
+		else {
+			System.out.println("The elements in the stack are:-");
+			for(int i = top;i>=0;i--) {							//printing from top to 0th index as that is how a stack is printed
+				System.out.println(arr.get(i));
+			}
+		}
+		
+	}
+
+}
+
+public class q1 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
